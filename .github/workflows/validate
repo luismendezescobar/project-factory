@@ -1,0 +1,77 @@
+name: 'validate code'
+on:
+  pull_request:
+    branches:
+    - 'develop'
+jobs:
+  job1-validate:
+    permissions: write-all       #permissions for the GITHUB-TOKEN
+#      id-token: write
+#      contents: read
+#      issues: write      
+
+    runs-on: 'ubuntu-latest'
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2.5.0
+
+    # Install the latest version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3      
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
+        service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
+
+    # Run Terraform init
+    - name: Terraform Init
+      id: init
+      run: |
+        cd terra-module
+        terraform init 
+
+    # Run a Terraform validate
+    - name: Terraform validate
+      id: validate
+      if: success() || failure()      #it means run this step even either the previous step was success or failure   
+      run: |
+        cd terra-module
+        terraform validate -no-color
+
+    # Run a Terraform plan
+    - name: Terraform plan
+      id: plan
+      run: |
+        cd terra-module
+        terraform plan -no-color
+
+    # Add a comment to pull requests with plan results
+    - name: Update Pull Request
+      uses: actions/github-script@v6
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+          <details><summary>Show Plan</summary>
+          \`\`\`\n
+          ${process.env.PLAN}
+          \`\`\`
+          </details>
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
