@@ -1,0 +1,44 @@
+1. Created manually the storage for terraform state called (enable versioning):
+project_id: devops-369900
+storage name: app-lovin-tf-states
+
+2. run the terraform script to create OIDC setup in the devops project
+the folder is located in the repo under the folder iam-permissions/oidc-setup
+the terraform script was run manually from the cloud shell. it saved the state in the cloud storage
+app-loving-tf-states folder 
+project_id: devops-369900
+storage name: app-lovin-tf-states
+folder: tf-state-iam-permissions/tf-state-oidc-setup
+
+
+us-central1
+
+demmy
+gopa
+
+
+firebase.google.com
+
+wordscapes>>
+
+Groups in the company
+Central Tech
+  games
+Analytics
+ they only have 1 or 2 project
+
+Outsource (media agility)
+
+Apploving
+   - Firebase
+
+console.firebase.google.com
+
+wordscapes
+
+Prasans 
+https://github.com/Prasanlakhani/Terraform_Test/blob/master/.github/workflows/terraform.yml
+https://github.com/ned1313/env0-ci-example/blob/main/.github/workflows/feature-branch-ci.yml
+
+you have to enable 
+Identity and Access Management (IAM) API  in the devops project (where you have your account)
