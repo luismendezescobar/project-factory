@@ -48,7 +48,7 @@ jobs:
         cat ./terra-module/group_found.txt
         my_var=$(cat ./terra-module/group_found.txt)
         echo $my_var
-        GROUP_FOUND=$(cat ./terra-module/group_found.txt)
+        GROUP_FOUND2=$(cat ./terra-module/group_found.txt)
 
 
     - name: 'Group exists check validation'
@@ -59,10 +59,10 @@ jobs:
             core.setFailed('Some group doesn't exist')
 
 
-    - name: 'check the value of GROUP_FOUND'
+    - name: 'check the value of GROUP_FOUND2'
       run: |
         echo "Group found value"
-        echo ${{ env.GROUP_FOUND }}
+        echo ${{ env.GROUP_FOUND2 }}
 
     # Run Terraform init
     - name: Terraform Init
