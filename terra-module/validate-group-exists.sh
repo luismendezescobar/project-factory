@@ -10,9 +10,10 @@ else
   for file in ./files-projects/*.json; do   #loop to extract the group name from all the json files in the directory:
       #echo "$(basename "$file")"   
       GROUP_NAME=$(jq '.group_name' $file)  #we use jq to extract the file name from the field called group_name inside the json file
-      v1=${GROUP_NAME::-1}      #remove last character
-      GROUP_NAME=${v1:1}        #remove first character
-      GROUP_NAME="$GROUP_NAME@luismendeze.com"        #add the @luismendeze.com
+      #v1=${GROUP_NAME::-1}      #remove last character
+      #GROUP_NAME=${v1:1}        #remove first character
+      vari2=$(echo $GROUP_NAME | tr -d '"')  #remove first and last double quotes
+      GROUP_NAME="$vari2@luismendeze.com"        #add the @luismendeze.com
 
 
       echo "this is the group name $GROUP_NAME"
