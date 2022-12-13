@@ -24,18 +24,34 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2.0.3      
 
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
     - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+      uses: 'google-github-actions/auth@v1'
       with:
         workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
 
+    - id: 'run validation group script'
+      run: source ./terra-module/validate-group-exists.sh 
+
+    - name: 'Group exists check validation'
+      if: ${{ env.GROUP_FOUND == 0 }}
+      uses: actions/github-script@v3
+      with:
+        script: |
+            core.setFailed('Some group doesn't exist')
+
     # Run Terraform init
     - name: Terraform Init
       id: init
+      if: success()
       run: |
         cd terra-module
         terraform init 
+      if: failure()
+      run: exit 1
 
     # Run a Terraform validate
     - name: Terraform validate
