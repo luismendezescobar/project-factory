@@ -16,7 +16,7 @@ module "project-factory" {
   random_project_id_length =4  
   org_id             = each.value.org_id
   billing_account    = each.value.billing_account
-  auto_create_network = true
+  auto_create_network = each.value.auto_create_network
   activate_apis       = []
 
   svpc_host_project_id= each.value.svpc_host_project_id
@@ -29,15 +29,8 @@ module "project-factory" {
 }
 
 
-data "google_organization" "org" {
-  domain = "luismendeze.com"
-}
-
-
-
-
 output "output-value" {
-  value = data.google_organization.org
+  value = module.project-factory
 }
 
 

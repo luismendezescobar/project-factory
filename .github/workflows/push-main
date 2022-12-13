@@ -6,9 +6,6 @@ on:
 jobs:
   deploy-iam:
     permissions: write-all       #permissions for the GITHUB-TOKEN
-#      id-token: write
-#      contents: read
-#      issues: write      
 
     runs-on: 'ubuntu-latest'
     defaults:

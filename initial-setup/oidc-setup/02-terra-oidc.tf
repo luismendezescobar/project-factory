@@ -27,12 +27,12 @@ gcloud services enable sts.googleapis.com
 module "gh_oidc" {
   source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   project_id  = var.project_id
-  pool_id     = "pool-for-iam-pipeline"
-  provider_id = "iam-pipline-gh-provider"
+  pool_id     = "pool-for-proj-fact-pipeline"
+  provider_id = "project-factory-gh-provider"
   sa_mapping = {
-    "sa-pipeline-iam" = {
-      sa_name   = "projects/${var.project_id}/serviceAccounts/sa-pipeline-iam@devops-369900.iam.gserviceaccount.com"
-      attribute = "attribute.repository/luismendezescobar/iam-permissions"
+    "sa-project-factory" = {
+      sa_name   = "projects/${var.project_id}/serviceAccounts/sa-project-factory@devops-369900.iam.gserviceaccount.com"
+      attribute = "attribute.repository/luismendezescobar/project-factory"
     }
   }
 }
