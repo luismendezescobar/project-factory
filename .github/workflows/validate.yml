@@ -64,7 +64,7 @@ jobs:
       uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('this group NOT exist: $GROUP_DETAILS')
+            core.setFailed('this group NOT exist: ${{ env.GROUP_DETAILS }}')
 
     # Run Terraform init
     - name: Terraform Init
