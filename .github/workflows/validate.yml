@@ -57,7 +57,7 @@ jobs:
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6.3.3
       with:
         script: |
             core.setFailed('Some group doesn't exist')
