@@ -46,6 +46,8 @@ jobs:
       run: |
         echo "This is the value of group_found.txt file:"
         cat ./terra-module/group_found.txt
+        my_var=$(cat my_file)
+        echo $my_var
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
