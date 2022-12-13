@@ -48,10 +48,10 @@ jobs:
         cat ./terra-module/group_found.txt
         my_var=$(cat ./terra-module/group_found.txt)
         echo $my_var
+        GROUP_FOUND=$(cat ./terra-module/group_found.txt)
+
 
     - name: 'Group exists check validation'
-      env:
-        GROUP_FOUND: $(cat ./terra-module/group_found.txt)    
       if: ${{ env.GROUP_FOUND == 0 }}
       uses: actions/github-script@v3
       with:
