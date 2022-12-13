@@ -50,8 +50,6 @@ jobs:
       run: |
         cd terra-module
         terraform init 
-      if: failure()
-      run: exit 1
 
     # Run a Terraform validate
     - name: Terraform validate
