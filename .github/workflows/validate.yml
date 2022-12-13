@@ -51,13 +51,16 @@ jobs:
 
     - name: 'Group exists check validation'
       env:
-        GROUP_FOUND: $(cat ./terra-module/group_found.txt)
-      run: echo "Group found value ${{ env.GROUP_fOUND }}"
+        GROUP_FOUND: $(cat ./terra-module/group_found.txt)    
       if: ${{ env.GROUP_FOUND == 0 }}
       uses: actions/github-script@v3
       with:
         script: |
             core.setFailed('Some group doesn't exist')
+
+
+    - name: 'check the value of GROUP_FOUND'
+      run: echo "Group found value ${{ env.GROUP_fOUND }}"
 
     # Run Terraform init
     - name: Terraform Init
