@@ -47,8 +47,10 @@ jobs:
         echo "This is the value of group_found.txt file:"
         cat ./terra-module/group_found.txt
         my_var=$(cat ./terra-module/group_found.txt)
+        group_info=$(cat ./terra-module/group_details.txt)
         echo $my_var        
         echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
+        echo "GROUP_DETAILS=$group_info" >> $GITHUB_ENV
 
     - name: 'check the value of GROUP_FOUND again!!'
       run: |
@@ -60,7 +62,7 @@ jobs:
       uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('Some group NOT exist')
+            core.setFailed('this group NOT exist: $GROUP_DETAILS')
 
     # Run Terraform init
     - name: Terraform Init

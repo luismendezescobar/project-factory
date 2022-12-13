@@ -6,6 +6,7 @@ then
 echo "there are no files of .json type in the files-project directory"
 GROUP_FOUND=1  # we assing 1 because if we want to delete the last project in the folder
 echo 1 > ./terra-module/group_found.txt
+echo "last file" > ./terra-module/group_details.txt
 else 
 
   for file in ./files-projects/*.json; do   #loop to extract the group name from all the json files in the directory:
@@ -24,8 +25,9 @@ else
         echo "this is what I found $RESULT_GROUP"
         GROUP_FOUND=1
         echo 1 > ./terra-module/group_found.txt
+        echo "group found" > ./terra-module/group_details.txt
       else
-        echo "I could not found the group called $GROUP_NAME"
+        echo "I could not found the group called $GROUP_NAME" > ./terra-module/group_details.txt
         GROUP_FOUND=0
         echo 0 > ./terra-module/group_found.txt
         break
