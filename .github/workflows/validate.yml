@@ -39,17 +39,17 @@ jobs:
     - name: 'run validation group script'
       run: sh ./terra-module/validate-group-exists.sh
 
+    - name: 'print value of GROUP_FOUND'
+      run: |
+        echo "This is the value of GROUP_FOUND:"
+        echo "${{ env.GROUP_FOUND }}"
+
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
       uses: actions/github-script@v3
       with:
         script: |
             core.setFailed('Some group doesn't exist')
-
-    - name: 'print values'
-      run: |
-        echo "This is the value of GROUP_FOUND:"
-        echo "${{ env.GROUP_FOUND }}"
 
     # Run Terraform init
     - name: Terraform Init
