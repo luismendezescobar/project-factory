@@ -60,7 +60,7 @@ jobs:
       uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('Some group doesn't exist')
+            core.setFailed('Some group NOT exist')
 
     # Run Terraform init
     - name: Terraform Init
