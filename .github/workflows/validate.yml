@@ -60,7 +60,9 @@ jobs:
 
 
     - name: 'check the value of GROUP_FOUND'
-      run: echo "Group found value ${{ env.GROUP_fOUND }}"
+      run: |
+        echo "Group found value"
+        echo ${{ env.GROUP_FOUND }}
 
     # Run Terraform init
     - name: Terraform Init
