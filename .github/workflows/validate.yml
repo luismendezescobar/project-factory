@@ -46,7 +46,7 @@ jobs:
       run: |
         echo "This is the value of group_found.txt file:"
         cat ./terra-module/group_found.txt
-        my_var=$(cat my_file)
+        my_var=$(cat ./terra-module/group_found.txt)
         echo $my_var
 
     - name: 'Group exists check validation'
