@@ -4,7 +4,7 @@ on:
     branches:
     - 'main'
 jobs:
-  deploy-iam:
+  deploy-project-factory:
     permissions: write-all       #permissions for the GITHUB-TOKEN
 
     runs-on: 'ubuntu-latest'
