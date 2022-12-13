@@ -7,6 +7,7 @@ echo "there are no files of .json type in the files-project directory"
 GROUP_FOUND=1  # we assing 1 because if we want to delete the last project in the folder
 else 
   cat ./files-projects/control-project.json
+  echo "this is value of count: $count"
 
 fi
 
