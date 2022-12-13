@@ -44,7 +44,9 @@ jobs:
             core.setFailed('Some group doesn't exist')
 
     - name: 'print values'
-      run: echo "This is the value of GROUP_FOUND: ${{env.GROUP_FOUND}}"
+      run: |
+        echo "This is the value of GROUP_FOUND:"
+        echo "${{ env.GROUP_FOUND }}"
 
     # Run Terraform init
     - name: Terraform Init
