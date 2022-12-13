@@ -1,4 +1,7 @@
 name: 'validate code'
+env:
+  GROUP_FOUND: 777
+
 on:
   pull_request:
     branches:
@@ -27,21 +30,41 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
 
-    - id: 'auth'
+    - name: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
         workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
 
-    - id: 'run validation group script'
-      run: source ./terra-module/validate-group-exists.sh 
+    - name: 'check if scripts is there'
+      run: ls ./terra-module/
+
+    - name: 'run validation group script'
+      run: ./terra-module/validate-group-exists.sh
+
+    - name: 'print value of GROUP_FOUND file'
+      run: |
+        echo "This is the value of group_found.txt file:"
+        cat ./terra-module/group_found.txt
+        my_var=$(cat ./terra-module/group_found.txt)
+        group_info=$(cat ./terra-module/group_details.txt)
+        echo $my_var        
+        echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
+        echo "GROUP_DETAILS=$group_info" >> $GITHUB_ENV
+
+    - name: 'check the value of GROUP_FOUND again!!'
+      run: |
+        echo "Group found value"
+        echo ${{ env.GROUP_FOUND }}
+        echo "Group info"
+        echo ${{ env.GROUP_DETAILS }}
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('Some group doesn't exist')
+            core.setFailed('this group NOT exists: ${{ env.GROUP_DETAILS }} \n you must create it first')
 
     # Run Terraform init
     - name: Terraform Init
@@ -50,13 +73,11 @@ jobs:
       run: |
         cd terra-module
         terraform init 
-      if: failure()
-      run: exit 1
 
     # Run a Terraform validate
     - name: Terraform validate
       id: validate
-      if: success() || failure()      #it means run this step even either the previous step was success or failure   
+      if: success()       #it means run this step even either the previous step was success or failure   
       run: |
         cd terra-module
         terraform validate -no-color

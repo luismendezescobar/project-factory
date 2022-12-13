@@ -1,7 +1,7 @@
 locals {
-    json_files = fileset("${path.module}/files-projects","*.json")  
+    json_files = fileset("../files-projects","*.json")  
     json_data= { for file_name in local.json_files :
-                replace(file_name, ".json", "")=>jsondecode(file("${path.module}/files-projects/${file_name}"))} 
+                replace(file_name, ".json", "")=>jsondecode(file("../files-projects/${file_name}"))} 
 
 }
 

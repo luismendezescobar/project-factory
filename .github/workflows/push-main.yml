@@ -22,7 +22,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2.0.3      
 
     - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+      uses: 'google-github-actions/auth@v1'
       with:
         workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
@@ -44,7 +44,8 @@ jobs:
 
     # Run a Terraform apply
     - name: Terraform apply
-      id: apply      
+      id: apply    
+      if: success()  
       run: |
         cd terra-module
         terraform apply -auto-approve
