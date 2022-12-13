@@ -33,8 +33,12 @@ jobs:
         workload_identity_provider: ${{ secrets.PROVIDER_NAME }} # this is the output provider_name from the TF module        
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
 
+    - name: 'check if scripts is there'
+      run: ls ./terra-module/
+
     - name: 'run validation group script'
       run: source ./terra-module/validate-group-exists.sh 
+      shell: bash
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
