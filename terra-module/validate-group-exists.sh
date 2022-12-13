@@ -21,6 +21,7 @@ else
       echo "this is the group name $GROUP_NAME"
       #with gcloud we search for the group
       RESULT_GROUP=$(gcloud identity groups search --labels="cloudidentity.googleapis.com/groups.discussion_forum" --organization=luismendeze.com |sed -n "/$GROUP_NAME/p")
+      echo "this is the result group: $RESULT_GROUP"
       if [[ ${#RESULT_GROUP} -gt 0 ]]; then
         echo "this is what I found $RESULT_GROUP"
         GROUP_FOUND=1
