@@ -40,7 +40,7 @@ jobs:
       run: ls ./terra-module/
 
     - name: 'run validation group script'
-      run: sh ./terra-module/validate-group-exists.sh
+      run: ./terra-module/validate-group-exists.sh
 
     - name: 'print value of GROUP_FOUND file'
       run: |
