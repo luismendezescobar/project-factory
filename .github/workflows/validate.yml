@@ -47,8 +47,8 @@ jobs:
         echo "This is the value of group_found.txt file:"
         cat ./terra-module/group_found.txt
         my_var=$(cat ./terra-module/group_found.txt)
-        echo $my_var
-        GROUP_FOUND2=$(cat ./terra-module/group_found.txt)
+        echo $my_var        
+        echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
 
 
     - name: 'Group exists check validation'
@@ -62,7 +62,7 @@ jobs:
     - name: 'check the value of GROUP_FOUND2'
       run: |
         echo "Group found value"
-        echo ${{ env.GROUP_FOUND2 }}
+        echo ${{ env.GROUP_FOUND }}
 
     # Run Terraform init
     - name: Terraform Init
