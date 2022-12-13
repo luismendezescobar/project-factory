@@ -37,7 +37,7 @@ jobs:
       run: ls ./terra-module/
 
     - name: 'run validation group script'
-      run: sh ./terra-module/validate-group-exists.sh
+      run: sh ./terra-module/test.sh
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
