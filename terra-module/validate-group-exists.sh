@@ -1,13 +1,13 @@
 #!/bin/bash
 #validate if a file exists
-count=`ls -1 ../files-projects/*.json 2>/dev/null | wc -l`
+count=`ls -1 ./files-projects/*.json 2>/dev/null | wc -l`
 if [ $count == 0 ]
 then 
 echo "there are no files of .json type in the files-project directory"
 GROUP_FOUND=1  # we assing 1 because if we want to delete the last project in the folder
 else 
 
-  for file in ../files-projects/*.json; do   #loop to extract the group name from all the json files in the directory:
+  for file in ./files-projects/*.json; do   #loop to extract the group name from all the json files in the directory:
       #echo "$(basename "$file")"   
       GROUP_NAME=$(jq '.group_name' $file)  #we use jq to extract the file name from the field called group_name inside the json file
       v1=${GROUP_NAME::-1}      #remove last character
