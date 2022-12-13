@@ -52,6 +52,7 @@ jobs:
     - name: 'Group exists check validation'
       env:
         GROUP_FOUND: $(cat ./terra-module/group_found.txt)
+      run: echo "Group found value ${{ env.GROUP_fOUND }}"
       if: ${{ env.GROUP_FOUND == 0 }}
       uses: actions/github-script@v3
       with:
