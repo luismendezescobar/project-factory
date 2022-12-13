@@ -43,6 +43,9 @@ jobs:
         script: |
             core.setFailed('Some group doesn't exist')
 
+    - name: 'print values'
+      run: echo "This is the value of GROUP_FOUND: ${{env.GROUP_FOUND}}"
+
     # Run Terraform init
     - name: Terraform Init
       id: init
@@ -54,7 +57,7 @@ jobs:
     # Run a Terraform validate
     - name: Terraform validate
       id: validate
-      if: success() || failure()      #it means run this step even either the previous step was success or failure   
+      if: success()       #it means run this step even either the previous step was success or failure   
       run: |
         cd terra-module
         terraform validate -no-color
