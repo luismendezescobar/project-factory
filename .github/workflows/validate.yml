@@ -1,4 +1,7 @@
 name: 'validate code'
+env:
+  GROUP_FOUND: 777
+
 on:
   pull_request:
     branches:
