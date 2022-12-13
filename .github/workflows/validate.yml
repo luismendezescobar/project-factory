@@ -50,6 +50,10 @@ jobs:
         echo $my_var        
         echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
 
+    - name: 'check the value of GROUP_FOUND again!!'
+      run: |
+        echo "Group found value"
+        echo ${{ env.GROUP_FOUND }}
 
     - name: 'Group exists check validation'
       if: ${{ env.GROUP_FOUND == 0 }}
@@ -57,12 +61,6 @@ jobs:
       with:
         script: |
             core.setFailed('Some group doesn't exist')
-
-
-    - name: 'check the value of GROUP_FOUND2'
-      run: |
-        echo "Group found value"
-        echo ${{ env.GROUP_FOUND }}
 
     # Run Terraform init
     - name: Terraform Init
