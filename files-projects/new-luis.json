@@ -15,6 +15,6 @@
     ],        
     "activate_apis" :["compute.googleapis.com"],
     "essential_contacts": {"owner_email":["Nicolle.Hanson-Whitlock@luismendeze.com"],"tech_email":["Marc.Raymond@luismendeze.com"] },    
-    "create_project_sa": true,
+    "create_project_sa": false,
     "default_service_account" : "disable"
 }
