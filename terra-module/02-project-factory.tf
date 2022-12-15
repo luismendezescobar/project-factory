@@ -24,8 +24,8 @@ module "project-factory" {
   group_name         = each.value.group_name
   group_role         = each.value.group_role
   folder_id          = each.value.folder_id 
-  
-
+  create_project_sa  = each.value.create_project_sa
+  default_service_account= each.value.default_service_account
 }
 
 
