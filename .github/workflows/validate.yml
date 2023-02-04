@@ -5,7 +5,7 @@ env:
 on:
   pull_request:
     branches:
-    - 'develop'
+    - 'main'
 jobs:
   job1-validate:
     permissions: write-all       #permissions for the GITHUB-TOKEN
