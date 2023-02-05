@@ -15,13 +15,14 @@ module "project-factory" {
   random_project_id_length = 4
   org_id                   = each.value.org_id
   billing_account          = each.value.billing_account
-  auto_create_network      = each.value.auto_create_network
-  activate_apis            = each.value.activate_apis
   svpc_host_project_id     = each.value.svpc_host_project_id
+  folder_id                = each.value.folder_id  
+  auto_create_network      = each.value.auto_create_network
   shared_vpc_subnets       = each.value.shared_vpc_subnets
+  activate_apis            = each.value.activate_apis  
   group_name               = each.value.group_name
   group_role               = each.value.group_role
-  folder_id                = each.value.folder_id
+  
 
 }
 
