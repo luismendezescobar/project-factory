@@ -39,32 +39,39 @@ jobs:
     - name: 'check if scripts is there'
       run: ls ./terra-module/
 
-    - name: 'run validation group script'
-      run: ./terra-module/validate-group-exists.sh
+    - name: 'run validation project script'
+      run: ./helpers/preconditions/preconditions.py
 
     - name: 'print value of GROUP_FOUND file'
       run: |
-        echo "This is the value of group_found.txt file:"
-        cat ./terra-module/group_found.txt
-        my_var=$(cat ./terra-module/group_found.txt)
-        group_info=$(cat ./terra-module/group_details.txt)
+        echo "This is the value of result.txt file:"
+        cat ./helpers/preconditions/result.txt
+        result_var=$(cat ./helpers/preconditions/result.txt)
+        file_details=$(cat ./helpers/preconditions/file_details.txt)
         echo $my_var        
-        echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
-        echo "GROUP_DETAILS=$group_info" >> $GITHUB_ENV
+        echo "RESULT_VAR=$result_var" >> $GITHUB_ENV
+        echo "FILE_DETAILS=$file_details" >> $GITHUB_ENV
 
-    - name: 'check the value of GROUP_FOUND again!!'
+    - name: 'check the value of ENV variables'
       run: |
         echo "Group found value"
-        echo ${{ env.GROUP_FOUND }}
+        echo ${{ env.RESULT_VAR }}
         echo "Group info"
-        echo ${{ env.GROUP_DETAILS }}
+        echo ${{ env.FILE_DETAILS }}
 
-    - name: 'Group exists check validation'
-      if: ${{ env.GROUP_FOUND == 0 }}
+    - name: Create comment
+      if: ${{ env.RESULT_VAR == 1 }}
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          Failure, a project file is not valid. Go to actions tab for more details. ❌😕          
+
+    - name: 'check validation'
+      if: ${{ env.RESULT_VAR == 1 }}
       uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('this group NOT exists: ${{ env.GROUP_DETAILS }} \n you must create it first')
+            core.setFailed('The project file is not valid: ${{ env.FILE_DETAILS }}')
 
     # Run Terraform init
     - name: Terraform Init
@@ -82,9 +89,17 @@ jobs:
         cd terra-module
         terraform validate -no-color
 
+    - name: Create comment
+      if: failure()
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          terraform validate failed. Go to actions tab for more details. ❌😕
+
     # Run a Terraform plan
     - name: Terraform plan
       id: plan
+      if: success()
       run: |
         cd terra-module
         terraform plan -no-color
