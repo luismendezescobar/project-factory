@@ -6,6 +6,5 @@
     "labels" : {"project-owner" :"luis","cost-center": "123456", "tech-owner" :"pedro" },
     "auto_create_network": "false",
     "shared_vpc_subnets": [],        
-    "activate_apis" :["compute.googleapis.com"],
-    "essential_contacts": {"owner_email":["Nicolle.Hanson-Whitlock@luismendeze.com"],"tech_email":["Marc.Raymond@luismendeze.com"] }    
+    "activate_apis" :["compute.googleapis.com"],    
 }
