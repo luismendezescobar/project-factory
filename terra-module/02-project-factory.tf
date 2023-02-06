@@ -17,9 +17,13 @@ module "project-factory" {
   billing_account          = each.value.billing_account
   svpc_host_project_id     = each.value.svpc_host_project_id
   folder_id                = each.value.folder_id  
+  labels                   = each.value.labels
   auto_create_network      = each.value.auto_create_network
   shared_vpc_subnets       = each.value.shared_vpc_subnets
   activate_apis            = each.value.activate_apis  
+  essential_contacts       = each.value.essential_contacts
+  default_service_account  = "delete"
+  
   #group_name               = each.value.group_name
   #group_role               = each.value.group_role
   
