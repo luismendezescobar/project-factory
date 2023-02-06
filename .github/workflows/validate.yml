@@ -77,19 +77,12 @@ jobs:
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |          
-          const output = `#### Script Validation 🤖`
-          <details><summary>Validation Output</summary>
-          \`\`\`\n          
-          
-          \`\`\`
-          </details>
-
+        script: |
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: output
+            body: "hello there??"
           })          
 
     - name: 'check validation'
