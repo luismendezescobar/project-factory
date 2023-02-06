@@ -49,3 +49,20 @@ jobs:
       run: |
         cd terra-module
         terraform apply -auto-approve
+
+    - name: Add PR Comment
+      if: success()
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          Terraform was successfully applied! ✅😃
+          `#### Terraform apply output \`${{ steps.apply.outcome }}\`
+ 
+    # Add a comment to pull requests if apply is not successfull
+    - name: Create comment
+      if: failure()
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          terraform ended with failures. Go to actions tab for more details. ❌😕
+          `#### Terraform apply output \`${{ steps.apply.outcome }}\`

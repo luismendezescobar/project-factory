@@ -21,7 +21,7 @@ def validate_keys_exists(file_path):
             return 1
             
 
-directory = '../../files-projects'
+directory = './files-projects'
 ### in this part we iterate over all the directory with the json files
 for filename in os.listdir(directory):
     if filename.endswith('.json'):
@@ -75,16 +75,18 @@ for filename in os.listdir(directory):
                 if final_result==1:
                     with open("result.txt", "w") as h:
                         h.write("1")                                
-                    sys.exit(1)
+                    #sys.exit(1)
+                    break
 
             ## from here is where we are going to run the other script that is going to validate if the values
             ## provided to the keys: org_id, billing_account and folder_id exist inside of the google cloud organization
             ## these 3 keys would be validated in initial "if", in the "else" part it will be validated the initial 3 keys
             ## plus the shared vpc host id represented by the variable: svpc_host_project_id
             
-            print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}")
+            
             if svpc_host_project_id=="":            
-                result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                result = subprocess.run(['python', './helpers/preconditions/preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}")
                 print(f"Exit code: {result.returncode}")
                 if result.returncode != 0:
                     print(f"Child script failed. Please validate the file:{filename}")                    
@@ -98,21 +100,28 @@ for filename in os.listdir(directory):
                     with open("result.txt", "w") as h:
                         h.write("0")               
             else:
-                result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                result = subprocess.run(['python', './helpers/preconditions/preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}, svpc_host_project_id: {svpc_host_project_id} ")
+                print(result)
                 if result.returncode != 0:
                     print(f"Child script failed. Please validate the file:{filename}")                    
                     with open("file_details.txt", "w") as g: 
                         g.write(f"either the org_id,billing_account,folder_id or svpc_host_project_id are invalid. Please validate the file:{filename}")
                     with open("result.txt", "w") as h:
                         h.write("1")       
-                    sys.exit(1)
+                    #sys.exit(1)
+                    break
                 else:
                     print(f"Child script succeeded. Project:{filename}")  
                     with open("result.txt", "w") as h:
                         h.write("0")       
             
-#all good
-print("all the file projects are valid")
+
+if result.returncode!=0:
+    print("the script ended with errors.")
+else:
+    print("the script has successfully ended.")
+    
 
 
 

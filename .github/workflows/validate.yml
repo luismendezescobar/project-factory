@@ -28,7 +28,12 @@ jobs:
       uses: hashicorp/setup-terraform@v2.0.3      
 
     - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
+      uses: 'google-github-actions/setup-gcloud@v1.1.0'
+
+    - name: Install dependencies for python scripts
+      run: |
+        sudo apt-get install -y python3-pip
+        pip3 install -r helpers/preconditions/requirements.txt
 
     - name: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -37,34 +42,48 @@ jobs:
         service_account: ${{ secrets.SA_EMAIL }} # this is a SA email configured using the TF module with access to YOUR-GCS-BUCKET
 
     - name: 'check if scripts is there'
-      run: ls ./terra-module/
+      run: ls ./
 
-    - name: 'run validation group script'
-      run: ./terra-module/validate-group-exists.sh
+    - name: 'run validation project script'
+      run: ./helpers/preconditions/validate_projects.py
 
     - name: 'print value of GROUP_FOUND file'
       run: |
-        echo "This is the value of group_found.txt file:"
-        cat ./terra-module/group_found.txt
-        my_var=$(cat ./terra-module/group_found.txt)
-        group_info=$(cat ./terra-module/group_details.txt)
+        echo "This is the value of result.txt file:"
+        cat ./result.txt
+        result_var=$(cat ./result.txt)
+        file_details=$(cat ./file_details.txt)
         echo $my_var        
-        echo "GROUP_FOUND=$my_var" >> $GITHUB_ENV
-        echo "GROUP_DETAILS=$group_info" >> $GITHUB_ENV
+        echo "RESULT_VAR=$result_var" >> $GITHUB_ENV
+        echo "FILE_DETAILS=$file_details" >> $GITHUB_ENV
 
-    - name: 'check the value of GROUP_FOUND again!!'
+    - name: 'check the value of ENV variables'
       run: |
         echo "Group found value"
-        echo ${{ env.GROUP_FOUND }}
+        echo ${{ env.RESULT_VAR }}
         echo "Group info"
-        echo ${{ env.GROUP_DETAILS }}
+        echo ${{ env.FILE_DETAILS }}
 
-    - name: 'Group exists check validation'
-      if: ${{ env.GROUP_FOUND == 0 }}
+    - name: Create comment 2
+      if: ${{ env.RESULT_VAR == 1 }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |                    
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body:
+              `${{env.FILE_DETAILS}}`              
+          })          
+
+    - name: 'check validation'
+      if: ${{ env.RESULT_VAR == 1 }}
       uses: actions/github-script@v6.3.3
       with:
         script: |
-            core.setFailed('this group NOT exists: ${{ env.GROUP_DETAILS }} \n you must create it first')
+            core.setFailed('The project file is not valid: ${{ env.FILE_DETAILS }}')
 
     # Run Terraform init
     - name: Terraform Init
@@ -82,30 +101,58 @@ jobs:
         cd terra-module
         terraform validate -no-color
 
+    - name: Create comment
+      if: failure()
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          terraform validate failed. Go to actions tab for more details. ❌😕
+        allow-repeats : true
+
     # Run a Terraform plan
     - name: Terraform plan
       id: plan
+      if: success() 
       run: |
         cd terra-module
-        terraform plan -no-color
+        terraform plan -no-color -out=plan.tmp       
+        terraform show -no-color plan.tmp >${GITHUB_WORKSPACE}/plan.out
 
-    # Add a comment to pull requests with plan results
-    - name: Update Pull Request
+    - name: Terraform - Show Plan in PR
       uses: actions/github-script@v6
-      env:
-        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          const run_url = process.env.GITHUB_SERVER_URL + '/' + process.env.GITHUB_REPOSITORY + '/actions/runs/' + process.env.GITHUB_RUN_ID
+          const run_link = '<a href="' + run_url + '">Actions</a>.'
+          const fs = require('fs')
+          const plan_file = fs.readFileSync('plan.out', 'utf8')          
+          const plan = plan_file.length > 100000 ? "..." + plan_file.toString().substring(plan_file.length - 100000) : plan_file
+          const truncated_message = plan_file.length > 100000 ? "Output is too long and was truncated. You can read full Plan in " + run_link + "<br /><br />" : ""
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-          <details><summary>Show Plan</summary>
+          <details><summary>Validation Output</summary>
+
           \`\`\`\n
-          ${process.env.PLAN}
+          ${{ steps.validate.outputs.stdout }}
           \`\`\`
+
           </details>
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+          
+          <details><summary>Show Plan</summary>
+          
+          \`\`\`\n
+          ${plan}
+          \`\`\`
+          
+          </details>
+          ${truncated_message}
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ github.workspace }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
