@@ -78,7 +78,13 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `${{env.FILE_DETAILS}}`
+          const output = 
+          <details><summary>Validation Output</summary>
+          \`\`\`\n
+          `${{env.FILE_DETAILS}}`
+          \`\`\`
+          </details>
+          
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
