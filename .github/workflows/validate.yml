@@ -78,7 +78,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          #### Script Validation 🤖
+          const output = `#### Script Validation 🤖
           <details><summary>Validation Output</summary>
           \`\`\`\n
           ${{ env.FILE_DETAILS }}
