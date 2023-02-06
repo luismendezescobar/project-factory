@@ -101,7 +101,8 @@ for filename in os.listdir(directory):
                         h.write("0")               
             else:
                 result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id},svpc_host_project_id: {svpc_host_project_id} ")
+                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}, svpc_host_project_id: {svpc_host_project_id} ")
+                print(result)
                 if result.returncode != 0:
                     print(f"Child script failed. Please validate the file:{filename}")                    
                     with open("file_details.txt", "w") as g: 
