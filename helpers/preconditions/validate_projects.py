@@ -127,6 +127,10 @@ elif final_result==1:
     print("the script ended with errors.")
 elif count==0:
     print(f"there are not json files in this directory: {directory}")
+    with open("file_details.txt", "w") as g: 
+        g.write(f"there are not json files in this directory: {directory}")
+    with open("result.txt", "w") as h:
+        h.write("0")
 
 
 
