@@ -10,7 +10,7 @@ module "project-factory" {
   version  = "~> 14.1"
   for_each = local.json_data
 
-  name                     = each.value.key
+  name                     = each.key
   random_project_id        = true
   random_project_id_length = 4
   org_id                   = each.value.org_id
@@ -20,8 +20,8 @@ module "project-factory" {
   auto_create_network      = each.value.auto_create_network
   shared_vpc_subnets       = each.value.shared_vpc_subnets
   activate_apis            = each.value.activate_apis  
-  group_name               = each.value.group_name
-  group_role               = each.value.group_role
+  #group_name               = each.value.group_name
+  #group_role               = each.value.group_role
   
 
 }
