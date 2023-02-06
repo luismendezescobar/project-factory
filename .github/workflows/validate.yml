@@ -55,7 +55,7 @@ jobs:
         file_details=$(cat ./file_details.txt)
         echo $my_var        
         echo "RESULT_VAR=$result_var" >> $GITHUB_ENV
-       #echo "FILE_DETAILS=$file_details" >> $GITHUB_ENV
+        echo "FILE_DETAILS=$file_details" >> $GITHUB_ENV
 
     - name: 'check the value of ENV variables'
       run: |
@@ -78,7 +78,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = $(cat ./file_details.txt)
+          const output = `${{env.FILE_DETAILS}}`
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
