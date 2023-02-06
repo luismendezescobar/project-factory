@@ -22,6 +22,7 @@ def validate_keys_exists(file_path):
             
 
 directory = './files-projects'
+final_result=0
 ### in this part we iterate over all the directory with the json files
 for filename in os.listdir(directory):
     if filename.endswith('.json'):
@@ -47,8 +48,7 @@ for filename in os.listdir(directory):
             folder_id = data.get('folder_id')
             svpc_host_project_id = data.get('svpc_host_project_id')
             auto_create_network=data.get('auto_create_network')
-            
-            final_result=0
+                        
             with open("file_details.txt", "w") as g: 
                 if org_id=="":
                     print(f"org_id is in blank, please enter a valid org_id. File:{filename}")
@@ -116,12 +116,16 @@ for filename in os.listdir(directory):
                     with open("result.txt", "w") as h:
                         h.write("0")       
             
-
-if result.returncode!=0:
-    print("the script ended with errors.")
-else:
+if result is not None:
+    if result.returncode!=0:
+        print("the script ended with errors.")
+    else:
+        print("the script has successfully ended.")
+elif final_result==0:
     print("the script has successfully ended.")
-    
+else:
+    print("the script ended with errors.")
+
 
 
 
