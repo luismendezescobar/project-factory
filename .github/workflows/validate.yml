@@ -78,10 +78,11 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
+          conts details=$(cat ./file_details.txt)
           const output = `#### Script Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
-          \`\`\`\n
-          ${{ env.FILE_DETAILS }}
+          \`\`\`\n          
+          ${details}
           \`\`\`
           </details>
 
