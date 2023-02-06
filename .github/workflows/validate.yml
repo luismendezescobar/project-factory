@@ -77,12 +77,11 @@ jobs:
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const details=$(cat ./file_details.txt)
+        script: |          
           const output = `#### Script Validation 🤖`
           <details><summary>Validation Output</summary>
           \`\`\`\n          
-          ${details}
+          
           \`\`\`
           </details>
 
