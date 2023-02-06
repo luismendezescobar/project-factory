@@ -83,9 +83,10 @@ for filename in os.listdir(directory):
             ## these 3 keys would be validated in initial "if", in the "else" part it will be validated the initial 3 keys
             ## plus the shared vpc host id represented by the variable: svpc_host_project_id
             
-            print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}")
+            
             if svpc_host_project_id=="":            
                 result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}")
                 print(f"Exit code: {result.returncode}")
                 if result.returncode != 0:
                     print(f"Child script failed. Please validate the file:{filename}")                    
@@ -100,6 +101,7 @@ for filename in os.listdir(directory):
                         h.write("0")               
             else:
                 result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id},svpc_host_project_id: {svpc_host_project_id} ")
                 if result.returncode != 0:
                     print(f"Child script failed. Please validate the file:{filename}")                    
                     with open("file_details.txt", "w") as g: 
@@ -114,7 +116,7 @@ for filename in os.listdir(directory):
                         h.write("0")       
             
 #all good
-print("all the file projects are valid")
+print("the script has ended.")
 
 
 
