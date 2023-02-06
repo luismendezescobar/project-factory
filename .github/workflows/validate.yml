@@ -83,10 +83,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             body:
-              Validation Output
-              \`\`\`\n
-              `${{env.FILE_DETAILS}}`
-              \`\`\`              
+              `${{env.FILE_DETAILS}}`              
           })          
 
     - name: 'check validation'
