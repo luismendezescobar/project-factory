@@ -85,7 +85,7 @@ for filename in os.listdir(directory):
             
             
             if svpc_host_project_id=="":            
-                result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                result = subprocess.run(['python', './helpers/preconditions/preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}")
                 print(f"Exit code: {result.returncode}")
                 if result.returncode != 0:
@@ -100,7 +100,7 @@ for filename in os.listdir(directory):
                     with open("result.txt", "w") as h:
                         h.write("0")               
             else:
-                result = subprocess.run(['python', 'preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                result = subprocess.run(['python', './helpers/preconditions/preconditions.py','--org_id',org_id,'--billing_account',billing_account,'--folder_id',folder_id,'--shared_vpc',svpc_host_project_id], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 print(f"org_id: {org_id}, billing_account: {billing_account}, folder_id: {folder_id}, svpc_host_project_id: {svpc_host_project_id} ")
                 print(result)
                 if result.returncode != 0:
@@ -116,8 +116,12 @@ for filename in os.listdir(directory):
                     with open("result.txt", "w") as h:
                         h.write("0")       
             
-#all good
-print("the script has ended.")
+
+if result.returncode!=0:
+    print("the script ended with errors.")
+else:
+    print("the script has successfully ended.")
+    
 
 
 
