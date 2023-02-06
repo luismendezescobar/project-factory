@@ -64,14 +64,6 @@ jobs:
         echo "Group info"
         echo ${{ env.FILE_DETAILS }}
 
-    - name: Create comment
-      if: ${{ env.RESULT_VAR == 1 }}
-      uses: mshick/add-pr-comment@v2
-      with:
-        message: |
-          Failure, a project file is not valid. Go to actions tab for more details. ❌😕          
-        allow-repeats : true
-
     - name: Create comment 2
       if: ${{ env.RESULT_VAR == 1 }}
       uses: actions/github-script@v6
