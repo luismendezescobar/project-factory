@@ -72,6 +72,19 @@ jobs:
           Failure, a project file is not valid. Go to actions tab for more details. ❌😕          
         allow-repeats : true
 
+    - name: Create comment 2
+      if: ${{ env.RESULT_VAR == 1 }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          #### Script Validation 🤖
+          <details><summary>Validation Output</summary>
+          \`\`\`\n
+          ${{ env.FILE_DETAILS }}
+          \`\`\`
+          </details>          
+
     - name: 'check validation'
       if: ${{ env.RESULT_VAR == 1 }}
       uses: actions/github-script@v6.3.3
