@@ -57,6 +57,7 @@ jobs:
         message: |
           Terraform was successfully applied! ✅😃
           `#### Terraform apply output \`${{ steps.apply.outcome }}\`
+        allow-repeats : true
  
     # Add a comment to pull requests if apply is not successfull
     - name: Create comment
@@ -66,3 +67,4 @@ jobs:
         message: |
           terraform ended with failures. Go to actions tab for more details. ❌😕
           `#### Terraform apply output \`${{ steps.apply.outcome }}\`
+        allow-repeats : true
