@@ -20,8 +20,7 @@ module "project-factory" {
   labels                   = each.value.labels
   auto_create_network      = each.value.auto_create_network
   shared_vpc_subnets       = each.value.shared_vpc_subnets
-  activate_apis            = each.value.activate_apis  
-  essential_contacts       = each.value.essential_contacts
+  activate_apis            = each.value.activate_apis    
   default_service_account  = "delete"
   
   #group_name               = each.value.group_name

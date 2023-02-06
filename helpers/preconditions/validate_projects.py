@@ -13,7 +13,7 @@ import sys
 def validate_keys_exists(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)                
-        if "org_id" in data and "billing_account" in data and "svpc_host_project_id" in data and "folder_id" in data and "labels" in data and "auto_create_network" in data and "shared_vpc_subnets" in data and "activate_apis" in data and "essential_contacts" in data:
+        if "org_id" in data and "billing_account" in data and "svpc_host_project_id" in data and "folder_id" in data and "labels" in data and "auto_create_network" in data and "shared_vpc_subnets" in data and "activate_apis" in data:
             #good, all the keys are there..
             return 0
         else:
