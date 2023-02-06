@@ -24,10 +24,11 @@ def validate_keys_exists(file_path):
 directory = './files-projects'
 final_result=0
 result = None
+count = 0
 ### in this part we iterate over all the directory with the json files
 for filename in os.listdir(directory):
     if filename.endswith('.json'):
-        #print(filename)
+        count+=1
         file_path = os.path.join(directory, filename)
         ### in this part we validate that all the required keys exists, so we call the function validate_keys_exists
         if(validate_keys_exists(file_path)):
@@ -122,10 +123,10 @@ if result is not None:
         print("the script ended with errors.")
     else:
         print("the script has successfully ended.")
-elif final_result==0:
-    print("the script has successfully ended.")
-else:
+elif final_result==1:
     print("the script ended with errors.")
+elif count==0:
+    print(f"there are not json files in this directory: {directory}")
 
 
 
