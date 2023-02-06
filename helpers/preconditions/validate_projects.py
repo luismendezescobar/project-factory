@@ -75,7 +75,8 @@ for filename in os.listdir(directory):
                 if final_result==1:
                     with open("result.txt", "w") as h:
                         h.write("1")                                
-                    sys.exit(1)
+                    #sys.exit(1)
+                    break
 
             ## from here is where we are going to run the other script that is going to validate if the values
             ## provided to the keys: org_id, billing_account and folder_id exist inside of the google cloud organization
@@ -105,7 +106,8 @@ for filename in os.listdir(directory):
                         g.write(f"either the org_id,billing_account,folder_id or svpc_host_project_id are invalid. Please validate the file:{filename}")
                     with open("result.txt", "w") as h:
                         h.write("1")       
-                    sys.exit(1)
+                    #sys.exit(1)
+                    break
                 else:
                     print(f"Child script succeeded. Project:{filename}")  
                     with open("result.txt", "w") as h:
