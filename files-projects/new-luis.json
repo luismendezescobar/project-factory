@@ -6,5 +6,6 @@
     "labels" : {"project-owner" :"luis","cost-center": "123456", "tech-owner" :"pedro-mendez" },
     "auto_create_network": "false",
     "shared_vpc_subnets": [],        
-    "activate_apis" :["compute.googleapis.com"]    
+    "activate_apis" :["compute.googleapis.com"],    
+    "default_service_account" :"keep"
 }
