@@ -11,7 +11,7 @@ module "project-factory" {
   for_each = local.json_data
 
   name                     = each.key
-  random_project_id        = true
+  random_project_id        = each.value.random_project_id
   random_project_id_length = 4
   org_id                   = each.value.org_id
   billing_account          = each.value.billing_account
