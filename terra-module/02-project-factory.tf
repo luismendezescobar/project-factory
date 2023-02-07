@@ -21,7 +21,7 @@ module "project-factory" {
   auto_create_network      = each.value.auto_create_network
   shared_vpc_subnets       = each.value.shared_vpc_subnets
   activate_apis            = each.value.activate_apis    
-  default_service_account  = "delete"
+  default_service_account  = "keep"
   
   #group_name               = each.value.group_name
   #group_role               = each.value.group_role
