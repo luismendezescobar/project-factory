@@ -1,7 +1,7 @@
 {
     "org_id": "65202286851",
     "billing_account": "01710A-17EA16-57FCD3",
-    "svpc_host_project_id": "central-gcp-vpc-non-prod-37070",        
+    "svpc_host_project_id": "",        
     "folder_id": "250869018475",    
     "labels" : {"project-owner" :"luis","cost-center": "123456", "tech-owner" :"pedro-mendez" },
     "auto_create_network": "false",
