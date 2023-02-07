@@ -1,12 +1,12 @@
 {
-    "random_project_id" : "true",
-    "random_project_id_length": 4,
+    "random_project_id" : "false",
+    "random_project_id_length": 0,
     "org_id": "65202286851",
-    "billing_account": "01710A-17EA16-57FCD3",
+    "billing_account": "016AE0-A1405C-5DF4D8",
     "svpc_host_project_id": "",        
-    "folder_id": "250869018475",    
+    "folder_id": "646444353292",    
     "labels" : {"project-owner" :"luis","cost-center": "123456", "tech-owner" :"pedro-mendez" },
-    "auto_create_network": "false",
+    "auto_create_network": "true",
     "shared_vpc_subnets": [],        
     "activate_apis" :["compute.googleapis.com"],    
     "default_service_account" :"keep"

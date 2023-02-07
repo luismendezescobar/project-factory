@@ -12,7 +12,7 @@ module "project-factory" {
 
   name                     = each.key
   random_project_id        = each.value.random_project_id
-  random_project_id_length = 4
+  random_project_id_length = each.value.random_project_id_length
   org_id                   = each.value.org_id
   billing_account          = each.value.billing_account
   svpc_host_project_id     = each.value.svpc_host_project_id
