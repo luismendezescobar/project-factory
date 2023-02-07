@@ -1,4 +1,5 @@
 {
+    "random_project_id" : "true",
     "org_id": "65202286851",
     "billing_account": "01710A-17EA16-57FCD3",
     "svpc_host_project_id": "",        
@@ -8,4 +9,5 @@
     "shared_vpc_subnets": [],        
     "activate_apis" :["compute.googleapis.com"],    
     "default_service_account" :"keep"
+    
 }
