@@ -23,6 +23,7 @@ module "project-factory" {
   activate_apis            = each.value.activate_apis    
   default_service_account  = each.value.default_service_account
   create_project_sa        = each.value.create_project_sa
+  lien                     = each.value.lien
   #group_name               = each.value.group_name
   #group_role               = each.value.group_role
   

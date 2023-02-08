@@ -10,5 +10,6 @@
     "shared_vpc_subnets": [],        
     "activate_apis" :["compute.googleapis.com","oslogin.googleapis.com"],    
     "default_service_account" :"deprivilege",
-    "create_project_sa" : "false"
+    "create_project_sa" : "false",
+    "lien"              : "true"
 }
