@@ -22,7 +22,7 @@ module "project-factory" {
   shared_vpc_subnets       = each.value.shared_vpc_subnets
   activate_apis            = each.value.activate_apis    
   default_service_account  = each.value.default_service_account
-  
+  create_project_sa        = each.value.create_project_sa
   #group_name               = each.value.group_name
   #group_role               = each.value.group_role
   
