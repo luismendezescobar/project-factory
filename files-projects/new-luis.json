@@ -11,7 +11,7 @@
         "projects/central-gcp-vpc-non-prod-37070/regions/us-west1/subnetworks/subnet-01",
         "projects/central-gcp-vpc-non-prod-37070/regions/us-central1/subnetworks/subnet-02"
     ],        
-    "activate_apis" :["compute.googleapis.com","oslogin.googleapis.com","bigquery.googleapis.com"],    
+    "activate_apis" :["compute.googleapis.com","oslogin.googleapis.com"],    
     "default_service_account" :"deprivilege",
     "create_project_sa" : "false",
     "lien"              : "true"
