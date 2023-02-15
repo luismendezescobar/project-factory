@@ -24,7 +24,7 @@ module "project-factory" {
   default_service_account  = each.value.default_service_account
   create_project_sa        = each.value.create_project_sa
   lien                     = each.value.lien
-  budget_amount            = false 
+  budget_amount            = -1 
 
 }
 
