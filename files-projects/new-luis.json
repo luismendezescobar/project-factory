@@ -1,7 +1,7 @@
 {
     "random_project_id" : "false",
     "random_project_id_length": 0,
-    "project_id" : "",
+    "project_id" : "new-luis-id",
     "org_id": "65202286851",
     "billing_account": "01710A-17EA16-57FCD3",
     "svpc_host_project_id": "",        
