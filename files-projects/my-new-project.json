@@ -1,6 +1,6 @@
 {
-    "random_project_id" : "false",
-    "random_project_id_length": 0,
+    "random_project_id" : "true",
+    "random_project_id_length": 4,
     "name": "my-new-project",
     "project_id" : "my-new-project",
     "org_id": "65202286851",
