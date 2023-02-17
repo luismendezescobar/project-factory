@@ -10,7 +10,7 @@ module "project-factory" {
   version  = "~> 14.1"
   for_each = local.json_data
 
-  name                     = each.key
+  name                     = each.value.name
   random_project_id        = each.value.random_project_id
   random_project_id_length = each.value.random_project_id_length
   org_id                   = each.value.org_id
