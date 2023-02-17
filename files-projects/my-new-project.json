@@ -1,8 +1,8 @@
 {
-    "random_project_id" : "false",
-    "random_project_id_length": 0,
+    "random_project_id" : "true",
+    "random_project_id_length": 4,
     "name": "my-new-project",
-    "project_id" : "",
+    "project_id" : "my-new-project",
     "org_id": "65202286851",
     "billing_account": "01710A-17EA16-57FCD3",
     "svpc_host_project_id": "",        
