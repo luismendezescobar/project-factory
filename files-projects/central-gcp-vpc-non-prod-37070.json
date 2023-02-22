@@ -1,0 +1,17 @@
+{
+    "random_project_id" : "false",
+    "random_project_id_length": 0,
+    "name": "central-gcp-vpc-non-prod",
+    "project_id" : "central-gcp-vpc-non-prod-37070",
+    "org_id": "65202286851",
+    "billing_account": "016AE0-A1405C-5DF4D8",
+    "svpc_host_project_id": "",        
+    "folder_id": "250869018475",    
+    "labels" : {},
+    "auto_create_network": "false",
+    "shared_vpc_subnets": [],        
+    "activate_apis" :["compute.googleapis.com"],    
+    "default_service_account" :"keep",
+    "create_project_sa" : "false",
+    "lien"              : "false"
+}
