@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - 'feature/*'
+jobs:
+  create-pr:
+    permissions: write-all       #permissions for the GITHUB-TOKEN
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}        
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          commit-message: 'Automated PR created by GitHub Actions'
+          branch: ${{ github.ref }}
+          base: main
+          title: 'Automated PR for branch ${{ github.ref }}'
+          body: 'Automated PR created by GitHub Actions for branch ${{ github.ref }}'
+          labels: 'automated-pr'
