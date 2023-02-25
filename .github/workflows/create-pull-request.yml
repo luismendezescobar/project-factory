@@ -12,9 +12,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-#          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Automated PR created by GitHub Actions'
           branch: ${{ github.ref }}
+          base: main
           title: 'Automated PR for branch ${{ github.ref }}'
           body: 'Automated PR created by GitHub Actions for branch ${{ github.ref }}'
           labels: 'automated-pr'
