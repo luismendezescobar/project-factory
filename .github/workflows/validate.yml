@@ -1,7 +1,7 @@
 name: 'validate code'
 env:
   GROUP_FOUND: 777
-
+  REVIEWERS: luismendezescobar
 on:
   pull_request:
     branches:
@@ -165,8 +165,8 @@ jobs:
     needs: job1-validate
     if: ${{ success() }}
     steps:
-      - name: Add reviewers
-        uses: peter-evans/add-reviewers@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          reviewers: 'luismendezescobar'
+      - name Add Pull Request Reviewers
+          uses: sakhnovict/add-reviewers-action@1.0.0
+          with:
+            reviewers: ${{ env.REVIEWERS }}
+            token: ${{ secrets.GITHUB_TOKEN }}
