@@ -166,7 +166,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name Add Pull Request Reviewers
-          uses: sakhnovict/add-reviewers-action@1.0.0
-          with:
-            reviewers: ${{ env.REVIEWERS }}
-            token: ${{ secrets.GITHUB_TOKEN }}
+        uses: sakhnovict/add-reviewers-action@1.0.0
+        with:
+          reviewers: ${{ env.REVIEWERS }}
+          token: ${{ secrets.GITHUB_TOKEN }}
