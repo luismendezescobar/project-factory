@@ -7,7 +7,7 @@
     "billing_account": "01710A-17EA16-57FCD3",
     "svpc_host_project_id": "",        
     "folder_id": "250869018475",    
-    "labels" : {"label" : "test4"},
+    "labels" : {"label" : "test5"},
     "auto_create_network": "true",
     "shared_vpc_subnets": [],        
     "activate_apis" :["compute.googleapis.com"],    

@@ -23,6 +23,10 @@ jobs:
           commit-message: 'Automated PR'
           branch: ${{ github.ref }}
           base: main
-          title: 'Automated PR for branch ${{ github.ref }}'
-          body: 'Automated PR created by GitHub Actions for branch ${{ github.ref }}'
+          title: 'Automated PR '          
           labels: 'automated-pr'
+          body: |
+            Automated PR created by GitHub Actions for branch ${{ github.ref }}
+            Commits:
+            ${{ join(github.event.commits.*.message, '\n') }}
+            ${{ github.event.commits.message }}
