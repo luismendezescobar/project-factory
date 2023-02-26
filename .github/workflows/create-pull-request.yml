@@ -6,6 +6,7 @@ jobs:
   create-pr:
     permissions: write-all       #permissions for the GITHUB-TOKEN
     runs-on: ubuntu-latest
+    concurrency: my-concurrency
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
@@ -24,12 +25,11 @@ jobs:
           branch: ${{ github.ref }}
           base: main
           title: |
-            Automated PR with Commits: ${
-              { join(github.event.commits.*.message, ', ') }
-            }
+            Automated PR with Commits: 
+            ${{ join(github.event.commits.*.message, ', ') }}
           labels: 'automated-pr'
           body: |
             Automated PR created by GitHub Actions for branch ${{ github.ref }}
             Commits:
             ${{ join(github.event.commits.*.message, '\n') }}
-            ${{ github.event.commits.message }}
+    

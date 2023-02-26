@@ -8,6 +8,7 @@ jobs:
     permissions: write-all       #permissions for the GITHUB-TOKEN
 
     runs-on: 'ubuntu-latest'
+    concurrency: my-concurrency
     defaults:
       run:
         shell: bash
