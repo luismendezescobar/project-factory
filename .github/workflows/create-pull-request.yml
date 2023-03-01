@@ -33,3 +33,9 @@ jobs:
             Commits:
             ${{ join(github.event.commits.*.message, '\n') }}
     
+
+
+#the tricky part is on creating an app that generates tokens, below are the links on how to do it
+#https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#authenticating-with-github-app-generated-tokens
+#https://docs.github.com/en/apps/creating-github-apps/creating-github-apps/creating-a-github-app
+#https://www.youtube.com/watch?v=iaBEWB1As0k&t=2200s
