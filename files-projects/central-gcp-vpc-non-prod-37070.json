@@ -13,5 +13,6 @@
     "activate_apis" :["compute.googleapis.com"],    
     "default_service_account" :"keep",
     "create_project_sa" : "false",
-    "lien"              : "false"
+    "lien"              : "false",
+    "enable_shared_vpc_host_project" : "true"
 }

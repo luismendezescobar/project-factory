@@ -26,6 +26,7 @@ module "project-factory" {
   lien                     = each.value.lien
   project_id               = each.value.project_id
   budget_amount            = null
+  enable_shared_vpc_host_project = each.value.enable_shared_vpc_host_project
 
 }
 
