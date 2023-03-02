@@ -9,7 +9,10 @@
     "folder_id": "646893177009",    
     "labels" : {},
     "auto_create_network": "true",
-    "shared_vpc_subnets": [],        
+    "shared_vpc_subnets": [
+        "projects/net-shared-vpc-prod-a72t/regions/us-central1/subnetworks/subnet-us-central1-10-10-20-0-24",
+        "projects/net-shared-vpc-prod-a72t/regions/us-west1/subnetworks/subnet-us-west1-10-10-21-0-24"
+    ],        
     "activate_apis" :[],    
     "default_service_account" :"keep",
     "create_project_sa" : "false",
